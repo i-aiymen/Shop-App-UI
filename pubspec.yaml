@@ -48,6 +48,10 @@ flutter:
   assets:
     - assets/images/hamburger.png
     - assets/images/SEARCH.png
+    - assets/images/candel1.jpg
+    - assets/images/candel2.jpg
+    - assets/images/candel3.jpg
+    - assets/images/candel4.jpg
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.
