@@ -60,13 +60,79 @@ class MyApp extends StatelessWidget {
                     ) 
                   ]
                 ),
-                
+                child: Column(children: [
+                  SizedBox(height: 20),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    children: [
+                      buildColumn("Candles", isSelected: true),
+                      buildColumn("Vases"),
+                      buildColumn("Bins"),
+                      buildColumn("Floral"),
+                      buildColumn("Decor"),
+                      
+                    ]
+                  ),
+                  SizedBox(height: 20),
+                  SingleChildScrollView(
+                    physics: BouncingScrollPhysics(),
+                    scrollDirection: Axis.horizontal,
+                    child: Row(children: [
+                      buildColumn2("1","Elemental Tin Candle","29"),
+                      buildColumn2("2","Summer Candle","23"),
+                      buildColumn2("3","Winter Candle","40"),
+                      buildColumn2("4","Dummy Candle","60"),
+                    ],
+                    ),
+                  )
+                ],),                
             ),
           ),
         ],
         ),
       )
     );
+  }
+
+  Padding buildColumn2(String img, String title, String price) {
+    return Padding(
+      padding: const EdgeInsets.all(8.0),
+      child: Column(children: [
+                      Container(
+                        height: 220,
+                        width: 160,
+                        child: ClipRRect(
+                          borderRadius: BorderRadius.circular(20),
+                          child: Image.asset("assets/images/candel$img.jpg",fit: BoxFit.cover,))
+                      ),
+                      SizedBox(height: 10),
+                      Text(title,style: TextStyle(color: Colors.black, fontSize: 16),),
+                      SizedBox(height: 10),
+                      Text("\$$price",style: TextStyle(color: Colors.black, fontSize: 20),)
+
+                    ],),
+    );
+  }
+
+  Column buildColumn(String text, {bool isSelected=false}) {
+    return Column(
+                      children: [
+                        Text(
+                          text,
+                          style: TextStyle(color: isSelected ? Colors.black : Colors.grey ,fontSize: 18),
+                        ),
+                        SizedBox(height: 5),
+                        if(isSelected)
+                        Container(
+                          width: 5,
+                          height: 5,
+                          decoration: BoxDecoration(
+                            color: Colors.black,
+                            shape: BoxShape.circle
+                          ),
+                        )
+                      ],
+                    );
   }
 
   FlatButton buildFlatButton(String text,{bool isSelected=false}) {
