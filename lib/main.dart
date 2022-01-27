@@ -255,20 +255,21 @@ class myCandlesList extends StatelessWidget {
       child: Row(
         children: [
           SizedBox(width: 13),
-          buildColumn2("1", "Elemental Tin Candle", "29",context),
-          buildColumn2("2", "Summer Candle", "23",context),
-          buildColumn2("3", "Winter Candle", "40",context),
-          buildColumn2("4", "Dummy Candle", "60",context),
+          buildColumn2("1", "Elemental Tin Candle", "29", context),
+          buildColumn2("2", "Summer Candle", "23", context),
+          buildColumn2("3", "Winter Candle", "40", context),
+          buildColumn2("4", "Dummy Candle", "60", context),
         ],
       ),
     );
   }
 
-  GestureDetector buildColumn2(String img, String title, String price, BuildContext context) {
+  GestureDetector buildColumn2(
+      String img, String title, String price, BuildContext context) {
     return GestureDetector(
       onTap: () {
         Navigator.of(context).push(MaterialPageRoute(builder: (context) {
-          return DetailsPage();
+          return DetailsPage(img: img,title: title,price: price,context: context,);
         }));
       },
       child: Padding(
