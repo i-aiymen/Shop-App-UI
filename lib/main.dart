@@ -11,8 +11,35 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
         debugShowCheckedModeBanner: false,
         home: Scaffold(
-          resizeToAvoidBottomInset: false,
+          // resizeToAvoidBottomInset: false,
           backgroundColor: Colors.grey[200],
+          bottomNavigationBar: Container(
+            height: 70,
+            color: Colors.white,
+            child: Container(
+              decoration: BoxDecoration(
+                  color: Colors.white,
+                  borderRadius: BorderRadius.only(
+                      topLeft: Radius.circular(40),
+                      topRight: Radius.circular(40)),
+                  boxShadow: [
+                    BoxShadow(
+                        blurRadius: 20,
+                        color: Colors.grey[300],
+                        spreadRadius: 1)
+                  ]),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: [
+                  buildContainer2icons(Icons.person),
+                  buildContainer2icons(Icons.shopping_bag),
+                  buildContainer2icons(Icons.home, isSelected: true),
+                  buildContainer2icons(Icons.favorite),
+                  buildContainer2icons(Icons.settings),
+                ],
+              ),
+            ),
+          ),
           appBar: AppBar(
             toolbarHeight: 70,
             backgroundColor: Colors.grey[200],
@@ -62,56 +89,134 @@ class MyApp extends StatelessWidget {
                           blurRadius: 20,
                         )
                       ]),
-                  child: Column(
-                    children: [
-                      SizedBox(height: 40),
-                      Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                          children: [
-                            buildColumn("Candles", isSelected: true),
-                            buildColumn("Vases"),
-                            buildColumn("Bins"),
-                            buildColumn("Floral"),
-                            buildColumn("Decor"),
-                          ]),
-                      SizedBox(height: 20),
-                      SingleChildScrollView(
-                        physics: BouncingScrollPhysics(),
-                        scrollDirection: Axis.horizontal,
-                        child: Row(
-                          children: [
-                            SizedBox(width: 13),
-                            buildColumn2("1", "Elemental Tin Candle", "29"),
-                            buildColumn2("2", "Summer Candle", "23"),
-                            buildColumn2("3", "Winter Candle", "40"),
-                            buildColumn2("4", "Dummy Candle", "60"),
-                          ],
+                  child: SingleChildScrollView(
+                    physics: BouncingScrollPhysics(),
+                    scrollDirection: Axis.vertical,
+                    child: Column(
+                      children: [
+                        SizedBox(height: 40),
+                        Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                            children: [
+                              buildColumn("Candles", isSelected: true),
+                              buildColumn("Vases"),
+                              buildColumn("Bins"),
+                              buildColumn("Floral"),
+                              buildColumn("Decor"),
+                            ]),
+                        SizedBox(height: 20),
+                        SingleChildScrollView(
+                          physics: BouncingScrollPhysics(),
+                          scrollDirection: Axis.horizontal,
+                          child: Row(
+                            children: [
+                              SizedBox(width: 13),
+                              buildColumn2("1", "Elemental Tin Candle", "29"),
+                              buildColumn2("2", "Summer Candle", "23"),
+                              buildColumn2("3", "Winter Candle", "40"),
+                              buildColumn2("4", "Dummy Candle", "60"),
+                            ],
+                          ),
                         ),
-                      ),
-                      LineBar(),
-                      Padding(
-                        padding: const EdgeInsets.all(30.0),
-                        child: Row(
-                          children: [
-                            Text(
-                              "Holiday Special",
-                              style: TextStyle(fontSize: 24),
-                            ),
-                            Spacer(),
-                            Text(
-                              "View All",
-                              style:
-                                  TextStyle(fontSize: 20, color: Colors.grey),
-                            ),
-                          ],
+                        SizedBox(height: 20),
+                        LineBar(),
+                        Padding(
+                          padding: const EdgeInsets.all(30.0),
+                          child: Row(
+                            children: [
+                              Text(
+                                "Holiday Special",
+                                style: TextStyle(fontSize: 24),
+                              ),
+                              Spacer(),
+                              Text(
+                                "View All",
+                                style:
+                                    TextStyle(fontSize: 20, color: Colors.grey),
+                              ),
+                            ],
+                          ),
                         ),
-                      )
-                    ],
+                        SingleChildScrollView(
+                          physics: BouncingScrollPhysics(),
+                          scrollDirection: Axis.horizontal,
+                          child: Row(
+                            children: [
+                              buildContainer("3"),
+                              buildContainer("2"),
+                              buildContainer("1"),
+                              buildContainer("4"),
+                            ],
+                          ),
+                        )
+                      ],
+                    ),
                   ),
                 ),
               ),
             ],
           ),
+        ));
+  }
+
+  Container buildContainer2icons(IconData icon, {isSelected = false}) {
+    return Container(
+      decoration: BoxDecoration(
+          color: isSelected ? Colors.pink[100] : Colors.white,
+          shape: BoxShape.circle,
+          boxShadow: isSelected
+              ? [
+                  BoxShadow(
+                    color: Colors.grey,
+                    blurRadius: 10,
+                    spreadRadius: 1,
+                  ),
+                ]
+              : []),
+      height: 50,
+      width: 50,
+      child: Icon(
+        icon,
+        color: isSelected ? Colors.white : Colors.black,
+      ),
+    );
+  }
+
+  Container buildContainer(String img) {
+    return Container(
+        height: 150,
+        width: 255,
+        margin: EdgeInsets.only(left: 20),
+        child: Row(
+          children: [
+            ClipRRect(
+                borderRadius: BorderRadius.circular(30),
+                child: SizedBox(
+                    height: 120,
+                    width: 100,
+                    child: Image.asset(
+                      "assets/images/candel$img.jpg",
+                      fit: BoxFit.cover,
+                    ))),
+            Padding(
+              padding: const EdgeInsets.all(18.0),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text("Coconut Milk Bath"),
+                  Text(
+                    "16 oz",
+                    style: TextStyle(fontSize: 18, color: Colors.grey),
+                  ),
+                  Spacer(),
+                  Text(
+                    "\$28",
+                    style: TextStyle(fontSize: 24, fontWeight: FontWeight.w600),
+                  ),
+                ],
+              ),
+            )
+          ],
         ));
   }
 
