@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import 'DetailsPage.dart';
+
 void main() {
   runApp(MyApp());
 }
@@ -105,19 +107,7 @@ class MyApp extends StatelessWidget {
                               buildColumn("Decor"),
                             ]),
                         SizedBox(height: 20),
-                        SingleChildScrollView(
-                          physics: BouncingScrollPhysics(),
-                          scrollDirection: Axis.horizontal,
-                          child: Row(
-                            children: [
-                              SizedBox(width: 13),
-                              buildColumn2("1", "Elemental Tin Candle", "29"),
-                              buildColumn2("2", "Summer Candle", "23"),
-                              buildColumn2("3", "Winter Candle", "40"),
-                              buildColumn2("4", "Dummy Candle", "60"),
-                            ],
-                          ),
-                        ),
+                        myCandlesList(),
                         SizedBox(height: 20),
                         LineBar(),
                         Padding(
@@ -220,35 +210,6 @@ class MyApp extends StatelessWidget {
         ));
   }
 
-  Padding buildColumn2(String img, String title, String price) {
-    return Padding(
-      padding: const EdgeInsets.all(8.0),
-      child: Column(
-        children: [
-          Container(
-              height: 220,
-              width: 160,
-              child: ClipRRect(
-                  borderRadius: BorderRadius.circular(20),
-                  child: Image.asset(
-                    "assets/images/candel$img.jpg",
-                    fit: BoxFit.cover,
-                  ))),
-          SizedBox(height: 10),
-          Text(
-            title,
-            style: TextStyle(color: Colors.black, fontSize: 16),
-          ),
-          SizedBox(height: 10),
-          Text(
-            "\$$price",
-            style: TextStyle(color: Colors.black, fontSize: 20),
-          )
-        ],
-      ),
-    );
-  }
-
   Column buildColumn(String text, {bool isSelected = false}) {
     return Column(
       children: [
@@ -281,6 +242,61 @@ class MyApp extends StatelessWidget {
       ),
       shape: StadiumBorder(),
       color: isSelected ? Colors.pink[100] : Colors.grey[300],
+    );
+  }
+}
+
+class myCandlesList extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return SingleChildScrollView(
+      physics: BouncingScrollPhysics(),
+      scrollDirection: Axis.horizontal,
+      child: Row(
+        children: [
+          SizedBox(width: 13),
+          buildColumn2("1", "Elemental Tin Candle", "29",context),
+          buildColumn2("2", "Summer Candle", "23",context),
+          buildColumn2("3", "Winter Candle", "40",context),
+          buildColumn2("4", "Dummy Candle", "60",context),
+        ],
+      ),
+    );
+  }
+
+  GestureDetector buildColumn2(String img, String title, String price, BuildContext context) {
+    return GestureDetector(
+      onTap: () {
+        Navigator.of(context).push(MaterialPageRoute(builder: (context) {
+          return DetailsPage();
+        }));
+      },
+      child: Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: Column(
+          children: [
+            Container(
+                height: 220,
+                width: 160,
+                child: ClipRRect(
+                    borderRadius: BorderRadius.circular(20),
+                    child: Image.asset(
+                      "assets/images/candel$img.jpg",
+                      fit: BoxFit.cover,
+                    ))),
+            SizedBox(height: 10),
+            Text(
+              title,
+              style: TextStyle(color: Colors.black, fontSize: 16),
+            ),
+            SizedBox(height: 10),
+            Text(
+              "\$$price",
+              style: TextStyle(color: Colors.black, fontSize: 20),
+            )
+          ],
+        ),
+      ),
     );
   }
 }
