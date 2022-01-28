@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-
 import 'DetailsPage.dart';
 
 void main() {
@@ -269,7 +268,12 @@ class myCandlesList extends StatelessWidget {
     return GestureDetector(
       onTap: () {
         Navigator.of(context).push(MaterialPageRoute(builder: (context) {
-          return DetailsPage(img: img,title: title,price: price,context: context,);
+          return DetailsPage(
+            img: img,
+            title: title,
+            price: price,
+            context: context,
+          );
         }));
       },
       child: Padding(
